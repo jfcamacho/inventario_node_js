@@ -1,0 +1,30 @@
+const Express = require('express');
+const UsuarioRouter = require('./Usuario')
+const EstadoRouter = require('./Estado')
+const AuthRouter = require('./Auth')
+const DireccionRouter = require('./Direccion')
+const PagoRouter = require('./Pago')
+const UnidadRouter = require('./Unidad')
+const ProveedorRouter = require('./Proveedor')
+const InventarioRouter = require('./Inventario')
+const CategoriaRouter = require('./Categoria')
+const FacturaRouter = require('./Factura')
+const CompraRouter = require('./Compra')
+const VentaRouter = require('./Venta')
+
+const AppRouter = Express()
+
+AppRouter.use('/usuario', UsuarioRouter)
+AppRouter.use('/estado', EstadoRouter)
+AppRouter.use('/auth', AuthRouter)
+AppRouter.use('/direccion', DireccionRouter)
+AppRouter.use('/pago', PagoRouter)
+AppRouter.use('/unidad', UnidadRouter)
+AppRouter.use('/proveedor', ProveedorRouter)
+AppRouter.use('/inventario', InventarioRouter)
+AppRouter.use('/categoria', CategoriaRouter)
+AppRouter.use('/factura', FacturaRouter)
+AppRouter.use('/compra', CompraRouter)
+AppRouter.use('/venta', VentaRouter)
+
+module.exports = AppRouter
