@@ -4,7 +4,9 @@ const EstadoRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 EstadoRouter.get('/', Autenticar, (req, res) => {
-    EstadoModel.findAll()
+    EstadoModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

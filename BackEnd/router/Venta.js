@@ -14,8 +14,8 @@ VentaRouter.get('/', Autenticar, (req, res) => {
             idUsuario: {[Op.like]: `%${req.body.idUsuario}`},
             idInventario: {[Op.like]: `%${req.body.idInventario}`},
             idFactura: {[Op.like]: `%${req.body.idFactura}`}
-
-        }
+        },
+        attributes: {exclude: ['createdAt', 'updatedAt']}
     })
     .then((result) => {
         res.status(200).json(result)

@@ -1,6 +1,6 @@
 {
     "SEED": {
         "password": "EsteEsUnTest",
-        "ExpiresIn": "30m"
+        "ExpiresIn": "15m"
     }
 }

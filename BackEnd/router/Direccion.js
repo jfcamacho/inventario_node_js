@@ -4,7 +4,9 @@ const DireccionRouter = Express.Router()
 const Autenticar = require('../middlewares/autenticar')
 
 DireccionRouter.get('/', Autenticar, (req, res) => {
-    DireccionModel.findAll()
+    DireccionModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

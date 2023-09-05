@@ -13,7 +13,9 @@ InventarioRouter.get('/', Autenticar, (req, res) => {
             {idEstado: req.body.idEstado},
             {nombre: {[Op.like]: `%${req.body.nombre}%`}},
             {idCategoria: {[Op.like]: `%${req.body.idCategoria}`}}
-        ]}
+        ]},
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+        
     })
     .then((result) => {
         res.status(200).json(result)

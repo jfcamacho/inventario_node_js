@@ -4,7 +4,9 @@ const UnidadRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 UnidadRouter.get('/', Autenticar, (req, res) => {
-    UnidadModel.findAll()
+    UnidadModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

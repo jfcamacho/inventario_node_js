@@ -4,7 +4,9 @@ const ProveedorRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 ProveedorRouter.get('/', Autenticar, (req, res) => {
-    ProveedorModel.findAll()
+    ProveedorModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

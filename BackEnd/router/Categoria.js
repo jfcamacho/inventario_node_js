@@ -4,7 +4,9 @@ const CategoriaRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 CategoriaRouter.get('/', Autenticar, (req, res) => {
-    CategoriaModel.findAll()
+    CategoriaModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

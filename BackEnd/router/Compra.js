@@ -15,7 +15,8 @@ CompraRouter.get('/', Autenticar, (req, res) => {
             idInventario: {[Op.like]: `%${req.body.idInventario}`},
             idFactura: {[Op.like]: `%${req.body.idFactura}`}
 
-        }
+        },
+        attributes: {exclude: ['createdAt', 'updatedAt']}
     })
     .then((result) => {
         res.status(200).json(result)

@@ -4,7 +4,9 @@ const FacturaRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 FacturaRouter.get('/', Autenticar, (req, res) => {
-    FacturaModel.findAll()
+    FacturaModel.findAll({
+        attributes: {exclude: ['createdAt', 'updatedAt']}
+    })
     .then((result) => {
         res.status(200).json(result)
     }).catch((err) => {

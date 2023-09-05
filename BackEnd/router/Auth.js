@@ -31,4 +31,16 @@ AuthRouter.post('/', (req, res) => {
     });
 })
 
+AuthRouter.get('/renovarToken', (req, res) => {
+    lastToken = process.env.token
+    currentTime = Math.floor(Date.now() / 1000)
+    if (Jwt.decode(lastToken).exp + 900 > currentTime){
+        let jwt = Jwt.sign({Usuario: Jwt.decode(lastToken).Usuario}, Config.get("SEED.password"), {expiresIn: Config.get("SEED.ExpiresIn")})
+        process.env.token = jwt
+        res.status(200).json({Usuario: Jwt.decode(lastToken).Usuario, "Token": process.env.token})
+    }else {
+        res.status(200).json({Usuario: "", "Token": ""})
+    }
+})
+
 module.exports = AuthRouter
