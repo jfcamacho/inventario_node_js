@@ -1,0 +1,43 @@
+<div class="route-bar">
+    <div class="route-bar-breadcrumb">
+        <ul class="list-none p-0 m-0 flex align-items-center font-medium " >
+            <i class="pi pi-home" ngClass="mr-3"></i>
+            <ng-template ngFor let-item let-last="last" [ngForOf]="items">
+                <!-- <a [routerLink]="item.routerLink" *ngIf="item.routerLink">{{item.label}}</a>
+                <ng-container *ngIf="!item.routerLink">{{item.label}}</ng-container>
+                <span *ngIf="!last"> / </span> -->
+                <li>
+                    <a class="text-500 no-underline line-height-3 cursor-pointer" [routerLink]="item.routerLink" *ngIf="item.routerLink">{{item.label}}</a>
+                </li>
+                <li>
+                    <span class="text-900 line-height-3"><ng-container *ngIf="!item.routerLink">{{item.label}}</ng-container></span>
+                </li>
+                <li class="px-2" *ngIf="!last">
+                    <i class="pi pi-angle-right text-500 line-height-3"></i>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+
+    <ul class="route-bar-menu">
+        <li class="search-item">
+            <i class="pi pi-search" ></i>
+            <input type="text" placeholder="Search..."/>
+        </li>
+        <li>
+            <a href="#" pTooltip="Notifications" tooltipPosition="bottom">
+                <i class="pi pi-globe" ></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" pTooltip="Calendar" tooltipPosition="bottom">
+                <i class="pi pi-calendar"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" pTooltip="Help" tooltipPosition="bottom">
+                <i class="pi pi-question-circle" ></i>
+            </a>
+        </li>
+    </ul>
+</div>

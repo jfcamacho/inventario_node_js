@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+<div class="card">
+    <p-table #dt [value]="usuarios" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['nombres','correo']"
+    [rows]="5" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5>Personas</h5>
+                <div class="flex align-items-center">
+                    <span class="p-input-icon-left mr-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar persona..." />
+                    </span>
+                    <button pButton pRipple icon="icon" class="p-button-success" [routerLink]="['../usuario']"><fa-icon [icon]="['fas', 'user-plus']"></fa-icon></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center;">Nombres</th>
+                <th style="text-align: center;">Corrreo</th>
+                <th style="text-align: center;">Estado</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+            <tr>
+                <td>{{usuario.nombres}}</td>
+                <td>{{usuario.correo}}</td>
+                <td>{{usuario.Estado.descripcion}}</td>
+                <td style="text-align: center;">
+                    <button pButton pRipple icon="icon" class="p-button-info mr-2" [routerLink]="['../usuario', usuario.id]"><fa-icon [icon]="['fas', 'id-badge']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-warning mr-2" [routerLink]="['../usuario/', usuario.id]"><fa-icon [icon]="['fas', 'user-pen']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-danger" (click)="eliminarUsuario(usuario)"><fa-icon [icon]="['fas', 'user-xmark']"></fa-icon></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

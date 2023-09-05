@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+<div class="card">
+    <h4><strong>Perfíl de usuario</strong></h4>
+    <div class="formgrid grid">
+        <div class="field xl:col-2 md:col-6 sm:col-12">
+            <h4>Datos del usuario</h4>
+            
+        </div>
+        <div class="field xl:col-10 md:col-6 sm:col-12">
+            <label for="nombres">Nombres</label>
+            <input id="nombres" type="text" [(ngModel)]="usuario.nombres" name="nombres"
+                class=" text-base text-color surface-overlay p-2 border-1 
+                        border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full mb-3"
+            >
+            <label for="correo">Correo</label>
+            <input id="correo" type="email" [(ngModel)]="usuario.correo" name="correo"
+                class=" text-base text-color surface-overlay p-2 border-1 
+                        border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full mb-3"
+            >
+            <label for="password" class="mb-2">Password</label>
+            <div id="password" class="grid">
+                <div  class="field xl:col-6 mt-2">
+                    <input type="password" [(ngModel)]="usuario.password" name="password"
+                    class=" text-base text-color surface-overlay p-2 border-1 
+                            border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field xl:col-6 mt-2">
+                    <input type="password" [(ngModel)]="usuario.passwordR" name="password"
+                    class=" text-base text-color surface-overlay p-2 border-1 
+                            border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field xl:col-12" *ngIf="usuario.password != usuario.passwordR">
+                    <p [style]="{'color': 'red'}">* Las contraseñas no coinciden</p>
+                </div>
+            </div>
+            <label for="password">Estado</label>
+            <p-dropdown id="password" name="selectedEstado" [style]="{'width': '100%'}" [options]="estados" [(ngModel)]="selectedEstado" optionLabel="descripcion"></p-dropdown>
+            <p-button label="Almacenar" (onClick)="registrarUsuario()" icon="icon" styleClass="p-button-sm mt-5"><fa-icon [icon]="['fas', 'save']"></fa-icon></p-button>
+        </div>
+    </div>
+</div>
