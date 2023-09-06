@@ -6,6 +6,9 @@ import { AppMainComponent } from './layout/app.main.component';
 import { CRUDusuariosComponent } from './administracion/crudusuarios/crudusuarios.component';
 import { LoginComponent } from './login/login.component';
 import { accesoGuard } from './guards/acceso.guard';
+import { CategoriaComponent } from './configuracion/categoria/categoria.component';
+import { UnidadComponent } from './configuracion/unidad/unidad.component';
+import { PagoComponent } from './configuracion/pago/pago.component';
 
 const routes: Routes = [
   { path: 'SOFT', component: AppMainComponent, 
@@ -16,6 +19,12 @@ const routes: Routes = [
         {path: 'usuarios', component: UsuariosComponent, canActivate: [accesoGuard]},
         {path: 'usuario', component: CRUDusuariosComponent, canActivate: [accesoGuard]},
         {path: 'usuario/:idUsuario', component: CRUDusuariosComponent, canActivate: [accesoGuard]},
+      ], canActivate: [accesoGuard]},
+      {path: 'configuracion', 
+      children: [
+        {path: 'categoria', component: CategoriaComponent, canActivate: [accesoGuard]},
+        {path: 'unidad', component: UnidadComponent, canActivate: [accesoGuard]},
+        {path: 'pago', component: PagoComponent, canActivate: [accesoGuard]},
       ], canActivate: [accesoGuard]}
   ]},
   {path: '**', component: LoginComponent},

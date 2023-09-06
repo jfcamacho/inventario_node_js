@@ -1,0 +1,44 @@
+
+:host ::ng-deep {
+    .p-dialog {
+        width: 35vw !important;
+        // background-color: green !important;
+        border-radius: 25px !important; 
+    }
+    .p-dialog-draggable .p-dialog-header {
+        background: rgb(82,107,172) !important;
+        background: linear-gradient(90deg, rgba(82,107,172,1) 0%, rgba(33,47,81,1) 100%) !important;
+        border-radius: 25px 25px 0px 0px !important; 
+        color: white !important;
+    }
+    .p-dialog-title {
+        color: white !important;
+    }
+    .p-dialog .p-dialog-content {
+        padding-top: 30px !important;
+        width: 100%;
+        background-color: #ECF0F1 !important;
+        // color: white !important;
+    }
+    .p-dialog .p-dialog-footer {
+        background-color: #ECF0F1 !important;
+        border-radius:  0px 0px 25px 25px !important; 
+    }
+    .p-dialog .p-dialog-header .p-dialog-header-icon:focus {
+        box-shadow: 0 0 0 0.2rem white !important;
+    }
+    button.p-ripple.p-element.p-dialog-header-icon.p-dialog-header-close {
+        color: white !important;
+    }
+    .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
+        background: black !important;
+        color: white !important;
+    }
+    .p-button.p-button-text:enabled:hover {
+        background: #34495E !important;
+        color: white !important;
+    }
+    .p-button.p-button-text {
+        color: #34495E !important;
+    }
+}

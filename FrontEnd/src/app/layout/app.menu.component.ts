@@ -24,6 +24,14 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Usuarios', icon: 'users-gear', routerLink: ['/SOFT/administracion/usuarios']},
                     {label: 'Usuario', icon: 'users-gear', routerLink: ['/SOFT/administracion/usuario']}
                 ]
+            },
+            {
+                label: 'Configuración', icon: 'screwdriver-wrench', routerLink: ['/SOFT/configuracion'], badgeStyleClass: 'text-badge', badge: 'New',
+                items: [
+                    {label: 'Categoría', icon: 'swatchbook', routerLink: ['/SOFT/configuracion/categoria']},
+                    {label: 'Unidad', icon: 'infinity', routerLink: ['/SOFT/configuracion/unidad']},
+                    {label: 'Pago', icon: 'money-bill-wheat', routerLink: ['/SOFT/configuracion/pago']}
+                ]
             }
         ];
     }

@@ -26,7 +26,6 @@ export class AuthService {
   renovarToken(){
     return new Promise((resolve, reject) => {
       this.http.get(`${this.url}/auth/renovarToken`).subscribe((result) => {
-        console.log(result);
         if(result['Token'] != ""){
           // console.log('Last Token ' + this.cookieService.get('invToken'));
           this.cookieService.set('invToken', result['Token'], null, '/', null, true, 'Lax');

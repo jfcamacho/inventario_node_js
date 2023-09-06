@@ -117,6 +117,15 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
 
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { LoginComponent } from './login/login.component';
+import { CategoriaComponent } from './configuracion/categoria/categoria.component';
+import { EstadoComponent } from './configuracion/estado/estado.component';
+import { UnidadComponent } from './configuracion/unidad/unidad.component';
+import { CompraComponent } from './inventario/compra/compra.component';
+import { FacturaComponent } from './inventario/factura/factura.component';
+import { InventarioComponent } from './inventario/inventario/inventario.component';
+import { PagoComponent } from './configuracion/pago/pago.component';
+import { ProveedorComponent } from './inventario/proveedor/proveedor.component';
+import { VentaComponent } from './inventario/venta/venta.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +144,16 @@ import { LoginComponent } from './login/login.component';
     AppProfileComponent,
     AppBreadcrumbComponent,
     BlockViewer,
-    LoginComponent
+    LoginComponent,
+    CategoriaComponent,
+    EstadoComponent,
+    UnidadComponent,
+    CompraComponent,
+    FacturaComponent,
+    InventarioComponent,
+    PagoComponent,
+    ProveedorComponent,
+    VentaComponent
     // DashboardDemoComponent,
   ],
   imports: [
