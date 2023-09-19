@@ -1,1 +1,121 @@
-<p>inventario works!</p>
+<p-toast></p-toast>
+<div class="card">
+    <p-table #dt [value]="productos" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['nombre','stock', 'dir_almacenamiento', 'pr_compra', 'pr_venta', 'idUnidad', 'idCategoria']"
+    [rows]="10" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5>Productos</h5>
+                <div class="flex align-items-center">
+                    <span class="p-input-icon-left mr-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar producto..." />
+                    </span>
+                    <button pButton pRipple icon="icon" class="p-button-success" [routerLink]="['../producto/0']"><fa-icon [icon]="['fas', 'file-circle-plus']"></fa-icon></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center;">Nombre</th>
+                <th style="text-align: center;">Stock</th>
+                <th style="text-align: center;">Almacenamiento</th>
+                <th style="text-align: center;">Precio Compra</th>
+                <th style="text-align: center;">Precio Venta</th>
+                <th style="text-align: center;">Unidad</th>
+                <th style="text-align: center;">Categoría</th>
+                <th style="text-align: center;">Proveedores</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <td style="text-align: center;">{{producto.nombre}}</td>
+                <td style="text-align: center;">{{producto.stock}}</td>
+                <td style="text-align: center;">{{producto.dir_almacenamiento}}</td>
+                <td style="text-align: center;">{{producto.pr_compra}}</td>
+                <td style="text-align: center;">{{producto.pr_venta}}</td>
+                <td style="text-align: center;">{{producto.Unidad.abreviatura}}</td>
+                <td style="text-align: center;">{{producto.Categorium.nombre}}</td>
+                <td style="text-align: center;">
+                    <div class="flex justify-content-center align-items-center mb-2">
+                        <p-badge [value]="producto.proveedores" severity="success"></p-badge>
+                        <button pButton pRipple class="p-button-secondary p-button-text ml-2 p-button-sm p-button-rounded" icon="icon" (click)="mostrarProveedores(producto)">
+                            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+                        </button>
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    <button pButton pRipple icon="icon" class="p-button-info p-button-text mr-2" [routerLink]="['../producto', producto.id]"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-warning p-button-text mr-2" [routerLink]="['../producto/', producto.id]"><fa-icon [icon]="['fas', 'pen']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-danger p-button-text" (click)="eliminarProducto(producto)"><fa-icon [icon]="['fas', 'trash-can-arrow-up']"></fa-icon></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+<p-dialog [contentStyle]="{'overflow': 'visible'}"  header="Header" [(visible)]="showProveedores" [style]="{ width: '70vw' }" [baseZIndex]="1">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Administración de Proveedores</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <p-table #dt [value]="proveedores" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['Proveedor.razon_social','Proveedor.nom_contacto', 'Proveedor.tel_contacto']"
+    [rows]="10" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5>Productos</h5>
+                <div class="flex align-items-center">
+                    <span class="p-input-icon-left mr-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar proveedor..." />
+                    </span>
+                    <button pButton pRipple icon="icon" class="p-button-success p-button-text" (click)="asociarProveedor()"><fa-icon [icon]="['fas', 'file-circle-plus']"></fa-icon></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Razon Social</th>
+                <th style="text-align: center;">Nombre de contacto</th>
+                <th style="text-align: center;">Teléfono de contacto</th>
+                <th style="text-align: center;">Eliminar</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <td>{{producto.Proveedor.razon_social}}</td>
+                <td style="text-align: center;">{{producto.Proveedor.nom_contacto}}</td>
+                <td style="text-align: center;">{{producto.Proveedor.tel_contacto}}</td>
+                <td style="text-align: center;">
+                    <button pButton pRipple icon="icon" class="p-button-danger p-button-text" (click)="eliminarProveedor(producto)"><fa-icon [icon]="['fas', 'user-xmark']"></fa-icon></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </ng-template>
+
+</p-dialog> 
+
+<p-dialog [contentStyle]="{'overflow': 'visible'}"  header="Header" [(visible)]="editProveedor" [style]="{'width': '30vw'}" [baseZIndex]="1">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Asociar Proveedor</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <label for="proveedor">Proveedor</label>
+        <p-dropdown id="proveedor" name="idProveedor" [filter]="true" [style]="{'width': '100%'}" [options]="listProveedores" [(ngModel)]="asociacion.idProveedor" optionLabel="razon_social" optionValue="id"></p-dropdown>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-between">
+            <p-button icon="pi pi-save" label="Almacenar" (onClick)="almacenarAsociacion()" styleClass="p-button-text"></p-button>
+        </div>
+    </ng-template>
+
+</p-dialog> 

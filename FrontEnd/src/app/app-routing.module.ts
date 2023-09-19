@@ -9,6 +9,13 @@ import { accesoGuard } from './guards/acceso.guard';
 import { CategoriaComponent } from './configuracion/categoria/categoria.component';
 import { UnidadComponent } from './configuracion/unidad/unidad.component';
 import { PagoComponent } from './configuracion/pago/pago.component';
+import { ProveedorComponent } from './inventario/proveedor/proveedor.component';
+import { InventarioComponent } from './inventario/inventario/inventario.component';
+import { FacturaComponent } from './inventario/factura/factura.component';
+import { CompraComponent } from './inventario/compra/compra.component';
+import { VentaComponent } from './inventario/venta/venta.component';
+import { ProveedoresComponent } from './inventario/proveedor/proveedores.component';
+import { ProductoComponent } from './inventario/inventario/producto.component';
 
 const routes: Routes = [
   { path: 'SOFT', component: AppMainComponent, 
@@ -25,6 +32,16 @@ const routes: Routes = [
         {path: 'categoria', component: CategoriaComponent, canActivate: [accesoGuard]},
         {path: 'unidad', component: UnidadComponent, canActivate: [accesoGuard]},
         {path: 'pago', component: PagoComponent, canActivate: [accesoGuard]},
+      ], canActivate: [accesoGuard]},
+      {path: 'inventario', 
+      children: [
+        {path: 'productos', component: InventarioComponent, canActivate: [accesoGuard]},
+        {path: 'producto/:idProducto', component: ProductoComponent, canActivate: [accesoGuard]},
+        {path: 'proveedores', component: ProveedoresComponent, canActivate: [accesoGuard]},
+        {path: 'proveedor/:idProveedor', component: ProveedorComponent, canActivate: [accesoGuard]},
+        {path: 'facturas', component: FacturaComponent, canActivate: [accesoGuard]},
+        {path: 'compra', component: CompraComponent, canActivate: [accesoGuard]},
+        {path: 'venta', component: VentaComponent, canActivate: [accesoGuard]},
       ], canActivate: [accesoGuard]}
   ]},
   {path: '**', component: LoginComponent},

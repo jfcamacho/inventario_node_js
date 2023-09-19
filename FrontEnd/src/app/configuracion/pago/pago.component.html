@@ -1,1 +1,95 @@
-<p>pago works!</p>
+<p-toast></p-toast>
+<div class="card">
+    <p-table #dt [value]="pagos" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['abreviatura','descripcion', 'Estado.descripcion']"
+    [rows]="5" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5>pagos</h5>
+                <div class="flex align-items-center">
+                    <span class="p-input-icon-left mr-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar pago..." />
+                    </span>
+                    <button pButton pRipple icon="icon" class="p-button-success" (click)="crearPago()"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th >Identificador</th>
+                <th >Nombre</th>
+                <th >Descripcion</th>
+                <th >Estado</th>
+                <th style="text-align: center;">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pago>
+            <tr>
+                <td>{{pago.id}}</td>
+                <td>{{pago.nombre}}</td>
+                <td>{{pago.descripcion}}</td>
+                <td>{{pago.Estado.descripcion}}</td>
+                <td style="text-align: center;">
+                    <button pButton pRipple icon="icon" class="p-button-info mr-2" (click)="mostrarPago(pago)"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-warning mr-2" (click)="modificarPago(pago)"><fa-icon [icon]="['fas', 'pen-ruler']"></fa-icon></button>
+                    <button pButton pRipple icon="icon" class="p-button-danger" (click)="eliminarPago(pago)"><fa-icon [icon]="['fas', 'trash-can']"></fa-icon></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog header="Header" [(visible)]="showCategory" [style]="{ width: '30vw' }">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">{{title}}</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="card flex flex-wrap" style="padding: 3px 10px; width: 100%; border: 5px double; border-top-left-radius: 20px; border-bottom-right-radius: 20px; background-color: transparent">
+            <div class="formgrid grid" style="width: 100%;">
+                <div class="field xl:col-1 md:col-3 sm:col-12"><fa-icon [icon]="['fas', 'eye']" class="mr-3"></fa-icon></div>
+                <div class="field xl:col-4 md:col-9 sm:col-12"><b>Identificación.:</b></div>
+                <div class="field xl:col-7 md:col-12 sm:col-12">{{pago.id}}</div>
+                <div class="field xl:col-1 md:col-3 sm:col-12"><fa-icon [icon]="['fas', 'eye']" class="mr-3"></fa-icon></div>
+                <div class="field xl:col-4 md:col-9 sm:col-12"><b>Nombre.:</b></div>
+                <div class="field xl:col-7 md:col-12 sm:col-12">{{pago.nombre}}</div>
+                <div class="field xl:col-1 md:col-3 sm:col-12"><fa-icon [icon]="['fas', 'eye']" class="mr-3"></fa-icon></div>
+                <div class="field xl:col-4 md:col-9 sm:col-12"><b>descripción.:</b></div>
+                <div class="field xl:col-7 md:col-12 sm:col-12">{{pago.descripcion}}</div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="showCategory = false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+    
+</p-dialog>
+
+<p-dialog [contentStyle]="{'overflow': 'visible'}"  header="Header" [(visible)]="editCategory" [style]="{ width: '30vw' }" [baseZIndex]="1">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">{{title}}</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="formgrid grid">
+            <div class="field xl:col-12 md:col-12 sm:col-12">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" [(ngModel)]="pago.nombre" name="nombre"
+                    class=" text-base text-color surface-overlay p-2 border-1 
+                            border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full mb-3"
+                >
+                <label for="descripcion">Descripción</label>
+                <input id="descripcion" type="text" [(ngModel)]="pago.descripcion" name="descripcion"
+                    class=" text-base text-color surface-overlay p-2 border-1 
+                            border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full mb-3"
+                >
+                <label for="estado">Estado</label>
+                <p-dropdown id="estado" name="selectedEstado" [style]="{'width': '100%'}" [options]="estados" [(ngModel)]="selectedEstado" optionLabel="descripcion"></p-dropdown>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="almacenar()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+
+</p-dialog>

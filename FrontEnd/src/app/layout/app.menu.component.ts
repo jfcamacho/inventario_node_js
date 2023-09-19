@@ -32,6 +32,16 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Unidad', icon: 'infinity', routerLink: ['/SOFT/configuracion/unidad']},
                     {label: 'Pago', icon: 'money-bill-wheat', routerLink: ['/SOFT/configuracion/pago']}
                 ]
+            },
+            {
+                label: 'Inventario', icon: 'chart-pie', routerLink: ['/SOFT/inventario'], badgeStyleClass: 'text-badge', badge: 'New',
+                items: [
+                    {label: 'Productos', icon: 'gifts', routerLink: ['/SOFT/inventario/productos']},
+                    {label: 'Proveedores', icon: 'people-roof', routerLink: ['/SOFT/inventario/proveedores']},
+                    {label: 'Facturas', icon: 'file-invoice-dollar', routerLink: ['/SOFT/inventario/facturas']},
+                    {label: 'Compra', icon: 'cart-shopping', routerLink: ['/SOFT/inventario/compra']},
+                    {label: 'Venta', icon: 'cash-register', routerLink: ['/SOFT/inventario/venta']}
+                ]
             }
         ];
     }

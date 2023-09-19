@@ -29,7 +29,7 @@ export class CategoriaComponent {
   }
 
   actualizarCategorias(){
-    this.categoriaService.consultarCategoria().subscribe((categorias: any) => {
+    this.categoriaService.consultarCategorias().subscribe((categorias: any) => {
       this.categorias = categorias
     })
   }
@@ -38,19 +38,21 @@ export class CategoriaComponent {
     this.title = `Administración de categoria ${categoria.nombre.toLowerCase()}`
     this.showCategory = true
     this.categoria = categoria
+    this.selectedEstado = categoria.Estado
   }
 
   modificarCategoria(categoria: categoria){
     this.title = `Administración de categoria ${categoria.nombre.toLowerCase()}`
     this.editCategory = true
     this.categoria = categoria
-    
+    this.selectedEstado = categoria.Estado
   }
 
   crearCategoria(){
     this.title = `Nueva categoria`
     this.editCategory = true
     this.categoria = new categoria
+    this.selectedEstado = new estado
   }
 
   eliminarCategoria(categoria: categoria){
@@ -63,6 +65,7 @@ export class CategoriaComponent {
   }
 
   almacenar(){
+    this.categoria.idEstado = this.selectedEstado.id
     this.categoriaService.crearCategoria(this.categoria).subscribe((result) => {
       if(result){
         this.actualizarCategorias()

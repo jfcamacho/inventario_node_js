@@ -1,1 +1,54 @@
-<p>factura works!</p>
+<p-toast></p-toast>
+<div class="card">
+    <div class="formgrid grid">
+        <div class="field xl:col-2 md:col-4 sm:col-12">
+            <!-- <div class="card flex justify-content-center" style="width: 100%;"> -->
+                <p-menu [model]="items" [style]="{'width': '100%'}"></p-menu>
+            <!-- </div> -->
+        </div>
+        <div class="field xl:col-10 md:col-8 sm:col-12">
+            <p-table #dt [value]="facturas" [tableStyle]="{ 'min-width': '50rem' }"
+            [globalFilterFields]="['num_factura','Proveedor.razon_social', 'fecha_compra', 'costo_total', 'idEstado']"
+            [rows]="10" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+            >
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-between">
+                        <h5>Facturas {{title}}</h5>
+                        <div class="flex align-items-center">
+                            <span class="p-input-icon-left mr-2">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar factura..." />
+                            </span>
+                            <button pButton pRipple icon="icon" class="p-button-success" [routerLink]="['../proveedor']"><fa-icon [icon]="['fas', 'file-circle-plus']"></fa-icon></button>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center;">Nº de Factura</th>
+                        <th style="text-align: center;">Proveedor</th>
+                        <th style="text-align: center;">Fecha de compra</th>
+                        <th style="text-align: center;">Costo total</th>
+                        <th style="text-align: center;">Estado</th>
+                        <th style="text-align: center;">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-factura>
+                    <tr>
+                        <td style="text-align: center;">{{factura.num_factura}}</td>
+                        <td style="text-align: center;">{{factura.Proveedor.razon_social}}</td>
+                        <td style="text-align: center;">{{factura.fecha_compra | date: "dd-MM-yyyy"}}</td>
+                        <td style="text-align: center;">{{factura.costo_total}}</td>
+                        <td style="text-align: center;">{{factura.Estado.descripcion}}</td>
+                        <td style="text-align: center;">
+                            <button pButton pRipple icon="icon" class="p-button-info p-button-text mr-2" [routerLink]="['../factura', factura.id]"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
+                            <button pButton pRipple icon="icon" class="p-button-warning p-button-text mr-2" [routerLink]="['../factura/', factura.id]"><fa-icon [icon]="['fas', 'pen']"></fa-icon></button>
+                            <button pButton pRipple icon="icon" class="p-button-danger p-button-text" (click)="eliminarFactura(factura)"><fa-icon [icon]="['fas', 'trash-can-arrow-up']"></fa-icon></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

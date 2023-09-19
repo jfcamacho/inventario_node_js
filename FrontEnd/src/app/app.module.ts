@@ -126,6 +126,8 @@ import { InventarioComponent } from './inventario/inventario/inventario.componen
 import { PagoComponent } from './configuracion/pago/pago.component';
 import { ProveedorComponent } from './inventario/proveedor/proveedor.component';
 import { VentaComponent } from './inventario/venta/venta.component';
+import { ProveedoresComponent } from './inventario/proveedor/proveedores.component';
+import { ProductoComponent } from './inventario/inventario/producto.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +155,9 @@ import { VentaComponent } from './inventario/venta/venta.component';
     InventarioComponent,
     PagoComponent,
     ProveedorComponent,
-    VentaComponent
+    VentaComponent,
+    ProveedoresComponent,
+    ProductoComponent
     // DashboardDemoComponent,
   ],
   imports: [

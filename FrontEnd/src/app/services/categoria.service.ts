@@ -12,7 +12,7 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  consultarCategoria(){
+  consultarCategorias(){
     return this.http.get(`${this.url}/categoria`)
   }
 

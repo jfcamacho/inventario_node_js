@@ -1,0 +1,127 @@
+<p-toast></p-toast>
+<div class="card">
+    <h4><strong>Datos del Producto</strong></h4>
+    <div class="formgrid grid">
+        <div class="field col-12 xl:col-3 md:col-4 sm:col-12">
+            <h4>Información del registro</h4>
+            <p-carousel [value]="images" 
+            [autoplayInterval]="1500">
+            <ng-template let-images pTemplate="item">
+                <div class="product-item" style="width:80%">
+                    <div class="product-item-content">
+                        <img [src]="images.previewImageSrc" 
+                            style="overflow: hidden;background-repeat: no-repeat;"
+                            width="100%" height="100%" 
+                            [alt]="images.alt" [title]="images.title">
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+        </div>
+        <div class="field col-12 xl:col-9 md:col-8 sm:col-12">
+            <div class="formgrid grid">
+                <div class="field col-12 xl:col-6 md:col-6 sm:col-12">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" [(ngModel)]="producto.nombre" name="nombre"
+                        class=" text-base text-color surface-overlay p-2 border-1 
+                                border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-12 xl:col-6 md:col-6 sm:col-12">
+                    <label for="dir_almacenamiento">Dirección de almacenaje</label>
+                    <input id="dir_almacenamiento" type="email" [(ngModel)]="producto.dir_almacenamiento" name="dir_almacenamiento"
+                        class=" text-base text-color surface-overlay p-2 border-1 
+                                border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-12 xl:col-12 md:col-12 sm:col-12">
+                    <label for="descripcion">Descripcion</label>
+                    <input id="descripcion" type="email" [(ngModel)]="producto.descripcion" name="descripcion"
+                        class=" text-base text-color surface-overlay p-2 border-1 
+                                border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-12 xl:col-4 md:col-4 sm:col-6">
+                    <label for="nv_min">Mínimo</label>
+                    <input id="nv_min" type="text" [(ngModel)]="producto.nv_min" name="nv_min"
+                        class=" text-base text-color surface-overlay p-2 border-1 
+                                border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-12 xl:col-4 md:col-4 sm:col-6">
+                    <label for="nv_max">Máximo</label>
+                    <input id="nv_max" type="text" [(ngModel)]="producto.nv_max" name="nv_max"
+                        class=" text-base text-color surface-overlay p-2 border-1 
+                                border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+                <div class="field col-12 xl:col-4 md:col-4 sm:col-6">
+                    <label for="unidad">Unidad</label>
+                    <p-dropdown id="unidad" name="idUnidad" [style]="{'width': '100%'}" [options]="Unidades" [(ngModel)]="producto.idUnidad" optionLabel="abreviatura" optionValue="id"></p-dropdown>
+                </div>
+                <div class="field col-12 xl:col-6 md:col-6 sm:col-6">
+                    <label for="categoria">categoria</label>
+                    <p-dropdown id="categoria" name="idCategoria" [style]="{'width': '100%'}" [options]="Categorias" [(ngModel)]="producto.idCategoria" optionLabel="nombre" optionValue="id"></p-dropdown>
+                </div>
+                <div class="field col-12 xl:col-6 md:col-6 sm:col-6">
+                    <label for="estado">Estado</label>
+                    <p-dropdown id="estado" name="idEstado" [style]="{'width': '100%'}" [options]="Estados" [(ngModel)]="producto.idEstado" optionLabel="descripcion" optionValue="id"></p-dropdown>
+                </div>
+                <!-- <div class="field col-12 xl:col-12 md:col-12 sm:col-12">
+                    <div class="flex justify-content-between align-items-center mb-2">
+                        <label for="diraccion">Dirección preferida</label>
+                        <a (click)="mostrarDirecciones()" *ngIf="producto.id != 0" style="cursor: pointer; align-items: center;"><fa-icon [icon]="['fas', 'clipboard-check']"></fa-icon><span class="ml-2" >Administrar direcciones</span></a>
+                    </div>
+                    
+                    <div id="diraccion" class="p-inputgroup mb-3">
+                        <p-dropdown [disabled]="producto.id == 0" name="selectedDireccion" placeholder="Select a Country" [showClear]="true" [style]="{'width': '100%'}" [options]="direcciones" [(ngModel)]="producto.idDireccion"  optionLabel="direccion" optionValue="id"></p-dropdown>
+                        <button [disabled]="producto.id == 0" (click)="crearDireccion()" pButton pRipple icon="icon" class="p-button-success ml-3" pTooltip="Agregar dirección" tooltipPosition="left"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
+                    </div>
+                    <p-messages [(value)]="messages" *ngIf="producto.id == 0" [enableService]="false" [closable]="false"></p-messages>
+                </div> -->
+            </div>
+            <p-button label="Almacenar" (onClick)="almacenarProducto()" icon="icon" styleClass="p-button-sm mt-2"><fa-icon [icon]="['fas', 'save']"></fa-icon></p-button>
+        </div>
+    </div>
+</div>
+
+<!-- ##################### VETANA DE REGISTRO DE DIRECCIONES ########################### -->
+
+<!-- <p-dialog header="Header" [(visible)]="showDirections" [style]="{ 'min-width': '70vw', 'max-height': '600px'}">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Administrar direcciones</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="dashboard">
+            <div class="grid">
+                <div class="col-12 md:col-12 lg:col-4" *ngFor="let dir of direcciones">
+                    <div class="card profile-details col-12"  style="padding: 0; position: relative; border-radius: 15px !important; ">
+                        <a (click)="editarDireccion(dir)" class="button_edit"><fa-icon [icon]="['fas', 'cog']"></fa-icon></a>
+                        
+                        <a class="button_select" *ngIf="dir.id == producto.idDireccion"><fa-icon [icon]="['fas', 'circle-check']"></fa-icon></a>
+                        
+                        <img src="assets/layout/images/mapa.png" style="border-radius: 15px 15px 0 0  !important;" alt="california-layout" class="mb-5"/>
+                        
+                        <div class="col-12" style="text-align: center">
+                            <img style="width: 50px; height: 50px;" src="assets/layout/images/4974554.png" alt="california-layout" class="profile-avatar" />
+                        </div>
+                        <div class="col-12" style="text-align: center">
+                            <span class="profile-name">Dirección</span>
+                            <span class="profile-role">{{dir.direccion}}</span>
+                        </div>
+                        <div class="formgrid grid col-12">
+                                <div class="field col-12 xl:col-1 md:col-2 sm:col-2 col-2" ><fa-icon [icon]="['fas', 'truck-fast']" class="mr-3" ></fa-icon></div>
+                                <div class="field col-12 xl:col-4 md:col-4 sm:col-4 col-4" ><b>Cod. Postal.:</b></div>
+                                <div class="field col-12 xl:col-7 md:col-6 sm:col-6 col-6" >{{dir.cod_postal}}</div>
+                                <div class="field col-12 xl:col-1 md:col-2 sm:col-2 col-2" ><fa-icon [icon]="['fas', 'mobile-screen']" class="mr-3" ></fa-icon></div>
+                                <div class="field col-12 xl:col-4 md:col-4 sm:col-4 col-4" ><b>Teléfono.:</b></div>
+                                <div class="field col-12 xl:col-7 md:col-6 sm:col-6 col-6" >{{dir.telefono}}</div>
+                                <div class="field col-12 xl:col-1 md:col-2 sm:col-2 col-2" ><fa-icon [icon]="['fas', 'city']" class="mr-3" ></fa-icon></div>
+                                <div class="field col-12 xl:col-4 md:col-4 sm:col-4 col-4" ><b>Ciudad.:</b></div>
+                                <div class="field col-12 xl:col-7 md:col-6 sm:col-6 col-6" >{{dir.ciudad}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="showDirections = false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+    
+</p-dialog> -->

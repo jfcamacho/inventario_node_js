@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 <div class="card">
     <p-table #dt [value]="categorias" [tableStyle]="{ 'min-width': '50rem' }"
-    [globalFilterFields]="['abreviatura','descripcion']"
+    [globalFilterFields]="['abreviatura','descripcion', 'Estado.descripcion']"
     [rows]="5" [rowsPerPageOptions]="[5,10,15]" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
     >
         <ng-template pTemplate="caption">
@@ -10,7 +10,7 @@
                 <div class="flex align-items-center">
                     <span class="p-input-icon-left mr-2">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar persona..." />
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar categoria..." />
                     </span>
                     <button pButton pRipple icon="icon" class="p-button-success" (click)="crearCategoria()"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
                 </div>
@@ -22,6 +22,7 @@
                 <th >Identificador</th>
                 <th >Nombre</th>
                 <th >Descripcion</th>
+                <th >Estado</th>
                 <th style="text-align: center;">Acciones</th>
             </tr>
         </ng-template>
@@ -30,6 +31,7 @@
                 <td>{{categoria.id}}</td>
                 <td>{{categoria.nombre}}</td>
                 <td>{{categoria.descripcion}}</td>
+                <td>{{categoria.Estado.descripcion}}</td>
                 <td style="text-align: center;">
                     <button pButton pRipple icon="icon" class="p-button-info mr-2" (click)="mostrarCategoria(categoria)"><fa-icon [icon]="['fas', 'eye']"></fa-icon></button>
                     <button pButton pRipple icon="icon" class="p-button-warning mr-2" (click)="modificarCategoria(categoria)"><fa-icon [icon]="['fas', 'pen-ruler']"></fa-icon></button>
