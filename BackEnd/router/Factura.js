@@ -1,11 +1,20 @@
 const Express = require('express');
 const FacturaModel = require('../models').Factura
+const UsuarioModel = require('../models').Usuario
+const EstadoModel = require('../models').Estado
+const ProveedorModel = require('../models').Proveedor
 const FacturaRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
-FacturaRouter.get('/', Autenticar, (req, res) => {
+FacturaRouter.get('/:idEstado', Autenticar, (req, res) => {
     FacturaModel.findAll({
-        attributes: {exclude: ['createdAt', 'updatedAt']}
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        include: [
+            {model: ProveedorModel, attributes: ['razon_social']},
+            {model: UsuarioModel, attributes: ['nombres']},
+            {model: EstadoModel, attributes: ['descripcion']}
+        ],
+        where: {idEstado: req.params.idEstado}
     })
     .then((result) => {
         res.status(200).json(result)
@@ -35,7 +44,7 @@ FacturaRouter.put('/:idFactura', Autenticar, (req, res) => {
 })
 
 FacturaRouter.delete('/:idFactura', Autenticar, (req, res) => {
-    FacturaModel.destroy({
+    FacturaModel.update({idEstado: 3},{
         where: {id: req.params.idFactura}
     })
     .then((result) => {

@@ -10,12 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Unidad.belongsTo(models.Estado, {
+        foreignKey: "idEstado",
+        targetKey: "id"
+      })
     }
   }
   Unidad.init({
     abreviatura: DataTypes.STRING,
-    descripcion: DataTypes.STRING
+    descripcion: DataTypes.STRING,
+    idEstado: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Unidad',

@@ -1,11 +1,14 @@
 const Express = require('express');
 const PagoModel = require('../models').Pago
+const EstadoModel = require('../models').Estado
 const PagoRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 PagoRouter.get('/', Autenticar, (req, res) => {
     PagoModel.findAll({
-        attributes: {exclude: ['createdAt', 'updatedAt']}
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        include: {model: EstadoModel, attributes: {exclude: ['createdAt', 'updatedAt']}},
+        order: ['id']
     })
     .then((result) => {
         res.status(200).json(result)

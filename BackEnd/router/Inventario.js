@@ -1,20 +1,35 @@
 const Express = require('express');
 const InventarioModel = require('../models').Inventario
+const CategoriaModel = require('../models').Categoria
+const UnidadModel = require('../models').Unidad
 const InventarioRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
-const {Op} = require('sequelize')
+const {Op, Sequelize} = require('sequelize')
+const sequelize = new Sequelize('sqlite::memory:');
 
-InventarioRouter.get('/', Autenticar, (req, res) => {
-
+InventarioRouter.get('/', (req, res) => {
     InventarioModel.findAll({
-        offset: 1*parseInt(req.body.offset),
-        limit: parseInt(req.body.limit),
-        where: {[Op.and]: [
-            {idEstado: req.body.idEstado},
-            {nombre: {[Op.like]: `%${req.body.nombre}%`}},
-            {idCategoria: {[Op.like]: `%${req.body.idCategoria}`}}
-        ]},
-        attributes: {exclude: ['createdAt', 'updatedAt']}
+        where: {idEstado: 1},
+        include: [
+            {model: UnidadModel, attributes: ['abreviatura']},
+            {model: CategoriaModel, attributes: ['nombre']}
+        ],
+        attributes: {
+            include: [[sequelize.literal(`(SELECT COUNT(*) FROM AsocProdProvs as fab WHERE fab.idProducto = Inventario.id and fab.idEstado = 1)`), 'proveedores']],
+            exclude: ['createdAt', 'updatedAt']
+        }
+        
+    })
+    .then((result) => {
+        res.status(200).json(result)
+    }).catch((err) => {
+        res.status(500).json('Error: ' + err)
+    });
+})
+
+InventarioRouter.get('/:idProducto', (req, res) => {
+    InventarioModel.findOne({
+        where: {id: req.params.idProducto},
         
     })
     .then((result) => {
@@ -45,7 +60,7 @@ InventarioRouter.put('/:idInventario', Autenticar, (req, res) => {
 })
 
 InventarioRouter.delete('/:idInventario', Autenticar, (req, res) => {
-    InventarioModel.destroy({
+    InventarioModel.update({idEstado: 3},{
         where: {id: req.params.idInventario}
     })
     .then((result) => {
@@ -56,3 +71,4 @@ InventarioRouter.delete('/:idInventario', Autenticar, (req, res) => {
 })
 
 module.exports = InventarioRouter
+

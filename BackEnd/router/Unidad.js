@@ -1,11 +1,14 @@
 const Express = require('express');
 const UnidadModel = require('../models').Unidad
+const EstadoModel = require('../models').Estado
 const UnidadRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 UnidadRouter.get('/', Autenticar, (req, res) => {
     UnidadModel.findAll({
-        attributes: {exclude: ['createdAt', 'updatedAt']}
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        include: {model: EstadoModel, attributes: {exclude: ['createdAt', 'updatedAt']}},
+        order: ['id']
     })
     .then((result) => {
         res.status(200).json(result)

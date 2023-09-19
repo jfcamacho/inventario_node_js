@@ -1,11 +1,14 @@
 const Express = require('express');
 const CategoriaModel = require('../models').Categoria
+const EstadoModel = require('../models').Estado
 const CategoriaRouter = Express.Router();
 const Autenticar = require('../middlewares/autenticar')
 
 CategoriaRouter.get('/', Autenticar, (req, res) => {
     CategoriaModel.findAll({
-        attributes: {exclude: ['createdAt', 'updatedAt']}
+        attributes: {exclude: ['createdAt', 'updatedAt']},
+        include: {model: EstadoModel, attributes: {exclude: ['createdAt', 'updatedAt']}},
+        order: ['id']
     })
     .then((result) => {
         res.status(200).json(result)

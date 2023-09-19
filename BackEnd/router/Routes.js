@@ -11,6 +11,7 @@ const CategoriaRouter = require('./Categoria')
 const FacturaRouter = require('./Factura')
 const CompraRouter = require('./Compra')
 const VentaRouter = require('./Venta')
+const AsocProdProvRouter = require('./AsocProdProv')
 
 const AppRouter = Express()
 
@@ -26,5 +27,6 @@ AppRouter.use('/categoria', CategoriaRouter)
 AppRouter.use('/factura', FacturaRouter)
 AppRouter.use('/compra', CompraRouter)
 AppRouter.use('/venta', VentaRouter)
+AppRouter.use('/asocprodprov', AsocProdProvRouter)
 
 module.exports = AppRouter
